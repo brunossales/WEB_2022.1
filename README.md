@@ -1,3 +1,3 @@
 <div align="center"> 
-    <img width=300px height=300px src="https://img.icons8.com/nolan/64/web.png"/>
+    <img width=200px height=200px src="https://img.icons8.com/nolan/64/web.png"/>
 </div>
