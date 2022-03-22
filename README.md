@@ -1,2 +1,1 @@
-# WEB_2022.1
-Estudos relacionados a cadeira de Desenvolvimento de Software para WEB e também estudos feito por fora da cadeira para a prática.
+<a href="https://icons8.com/icon/X-WB1cntO5xU/web">Web icon by Icons8</a>
