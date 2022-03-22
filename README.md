@@ -10,7 +10,7 @@
 <img height=25he src="https://img.shields.io/github/forks/brunossales/WEB_2022.1?style=social" /> 
 
 <div> 
-    <h2>📚 Repositório destinado aos estudos de Desenvolvimento de Software para WEB </h2>
+    <h3>📚 Repositório destinado aos estudos de Desenvolvimento de Software para WEB </h3>
     <h2>📁 Dentro de cada pasta tem o Readme explicando sobre qual conteúdo foi abordado </h2>
     <h2>💻 Pré-requisitos </h2>
     <ul>
