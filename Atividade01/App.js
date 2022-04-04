@@ -16,11 +16,12 @@ function App(){
 
       <Word>
         <Arena arena = "Arena Morumbi"> 
-          <Hero name="Flamengo"/>
-          <Enemy name="Fluminense"/>
+          <Hero name="Flamengoo"/>
+          <Enemy name="Fluminensee"/>
         </Arena>
       </Word>
     </div>
   )
 }
+
 export default App;
