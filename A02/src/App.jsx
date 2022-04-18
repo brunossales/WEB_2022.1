@@ -16,19 +16,19 @@ import EditProfessor from './components/CRUD/professor/EditProfessor'
 function App() {
 
   return (
-    <div className="container">
+    <div className="container" >
       <nav className='navbar navbar-expand-lg navbar-dark bg-dark'>
-        <Link to="/" className='navbar-brand dropdawn-menu'>UFC</Link>
+        <Link to="/" className='navbar-brand dropdawn-menu' style={{ padding: 5 }}>UFC</Link>
         <div className='dropdawn-menu' id='navbarSupportedContent'>
           <ul className='navbar-nav mr-auto'>
-            <li className='dropdawn-item'>
+            <li className='dropdawn-item' >
               <Link to="/" className='nav-link'>
-                Home
+                Inicio
               </Link>
             </li>
             <li className='navitem'>
               <Link to="About" className='nav-link'>
-                About
+                Sobre
               </Link>
             </li>
 
