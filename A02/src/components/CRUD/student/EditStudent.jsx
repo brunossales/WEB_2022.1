@@ -9,13 +9,15 @@ const EditStudent = () => {
 
     const params = useParams()
 
+    //chamado toda vez que o estado é modificado
     useEffect(
         () => {
             const student = students[params.id]
             setName(student.name)
             setCourse(student.course)
             setIra(student.ira)
-        }
+        },
+        [params.id]
     )
 
     const handleSubmit = (event) => {

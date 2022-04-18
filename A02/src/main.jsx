@@ -5,7 +5,7 @@ import './index.css'
 import {BrowserRouter} from 'react-router-dom'
 import Popper from 'popper.js'
 //npm install jquery popper.js
-import 'bootstrap/dist/js/bootstrap.bundle.min'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 //import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 ReactDOM.render(

@@ -19,6 +19,7 @@ const ListStudent = () => {
             <thead>
                     <th>ID</th>
                     <th>Nome</th>
+                    <th>Curso</th>
                     <th>Ira</th>
                 </thead>
                 <tbody>
