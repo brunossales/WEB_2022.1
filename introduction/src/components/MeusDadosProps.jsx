@@ -21,4 +21,18 @@ const MeusDadosProps = (props) => {
 //     }
 // }
 
+//Usando o ...obj ele pega tudo de obj e colocar em obj2, como se fosse herança
+// let obj = {
+//     nome: "bruno",
+//     idade: 15
+// }
+
+// let obj2 = {
+//     empresa : "UFC",
+//     ...obj
+// }
+
+// console.log(obj2)
+
+
 export default MeusDadosProps 
