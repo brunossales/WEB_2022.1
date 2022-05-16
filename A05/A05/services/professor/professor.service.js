@@ -20,8 +20,8 @@ class ProfessorService {
     static listP(req, res) {
         ProfessorModel.find()
         .then(
-            (professor) => {
-                res.status(201).json(professor)
+            (professors) => {
+                res.status(200).json(professors)
             }
         )
         .catch(

@@ -62,10 +62,12 @@ class StudentService {
 
     //retorna um studante
     static retrieve(req, res){
+        
         StudentModel.findById(req.params.id)
         .then(
             (students) => {
                 res.status(201).json(students)
+                // Content-Type: application/json
             }
         )
         .catch(

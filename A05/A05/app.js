@@ -34,5 +34,5 @@ app.use(cookieParser())
 
 //Usar no servidor
 app.use('/students/crud', studentsMongo);
-app.use('/professors/', professorMongo)
+app.use('/professors/crud', professorMongo)
 module.exports = app;
