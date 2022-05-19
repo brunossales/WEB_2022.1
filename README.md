@@ -30,13 +30,47 @@
 </ul>
 
 <h2>🚀 Ferramentas </h2>
-<ul>
-    <li> JavaScript; </li>
-    <li> React; </li>
-    <li> Node; </li>
-</ul>
 
-<h2>☕ Códigos feitos para estudos e Listas </h2>
+-  [Node.js](https://nodejs.org/en/)
+-  [ReactJS](https://reactjs.org/)
+-  [Firebase](https://firebase.google.com/)
+-  [Bootstrap 4](https://getbootstrap.com/)
+-  [React Bootstrap](https://react-bootstrap.github.io/)
+-  [Express](https://expressjs.com/pt-br/)
+
+<h2>☕ Para Rodar o código </h2>
+
+- <h2>Yarn</h2>
+
+  - [Node.js](https://nodejs.org/en/)
+  - [Yarn](https://yarnpkg.com/)
+
+```bash
+# Faça o downloald do projeto no seu computador
+$ git clone https://github.com/brunossales/WEB_2022.1
+# Entre na pasta raiz do projeto
+$ cd nome-da-pasta-do-projeto
+# Instale as dependências
+$ yarn install
+# Tudo pronto para iniciar o servidor
+$ yarn start
+```
+- <h2>NPM</h2>
+
+
+  - [Node.js](https://nodejs.org/en/)
+  - [NPM](https://www.npmjs.com/)
+
+```bash
+# Faça o downloald do projeto no seu computador
+$ git clone https://github.com/brunossales/WEB_2022.1
+# Entre na pasta raiz do projeto
+$ cd nome-da-pasta-do-projeto
+# Instale as dependências
+$ npm install
+# Tudo pronto para iniciar o servidor
+$ npm start
+```
 
 <h2>🤝 Colaboradores </h2>
     <ul>
