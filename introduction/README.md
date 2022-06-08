@@ -1,4 +1,4 @@
-# Estudou de WEB em Classe e em Casa 🚀 
+# Estudos de WEB em Classe e em Casa 🚀 
 
 ## Em classe:
 
