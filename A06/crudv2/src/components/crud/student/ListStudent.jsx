@@ -32,7 +32,7 @@ function ListStudent(props) {
             //         }
             //     )
 
-            FirebaseService.list_onSnapshot(
+            FirebaseService.list(
                 props.firebase.getFirestoreDb(),
                 (students)=>{
                     setStudents(students)
@@ -40,7 +40,7 @@ function ListStudent(props) {
             )
         }
         ,
-        []
+        [students]
     )
 
     function deleteStudentById(_id){

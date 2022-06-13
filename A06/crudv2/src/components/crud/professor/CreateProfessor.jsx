@@ -2,7 +2,17 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
 
-const CreateProfessor = () => {
+
+//Firebase
+import FirebaseContext from '../../../utils/FirebaseContext';
+import FirebaseProfessorService from '../../../services/FirebaseProfessorService';
+
+const CreateProfessorPage = () => 
+    <FirebaseContext.Consumer>
+        {(firebase) => <CreateProfessor firebase={firebase} />}
+    </ FirebaseContext.Consumer>
+
+function CreateProfessor(props) {
 
     const [name, setName] = useState("")
     const [university, setUniversity] = useState("")
@@ -17,15 +27,25 @@ const CreateProfessor = () => {
         //axios.post("http://localhost:3001/professors", newProfessor)
 
         //Express com mongo
-        axios.post("http://localhost:3002/professors/crud/create", newProfessor)
-        .then(
-            (response) => {
-                console.log(response)
-                alert(`Professor ${name} criado com sucesso, maninho!!`)
-                navigate('/listProfessor')
-            }
+        // axios.post("http://localhost:3002/professors/crud/create", newProfessor)
+        // .then(
+        //     (response) => {
+        //         console.log(response)
+        //         alert(`Professor ${name} criado com sucesso, maninho!!`)
+        //         navigate('/listProfessor')
+        //     }
+        // )
+        // .catch(error=>console.log(error))
+
+        //Firebase
+        FirebaseProfessorService.create(
+            props.firebase.getFirestoreDb(),
+            (id) =>{
+                alert(`Criando o professor`)
+                navigate("/listProfessor")
+            },
+            newProfessor
         )
-        .catch(error=>console.log(error))
     }
 
     return (
@@ -71,4 +91,4 @@ const CreateProfessor = () => {
     );
 }
 
-export default CreateProfessor
+export default CreateProfessorPage

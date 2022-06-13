@@ -2,6 +2,10 @@ import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
 
+
+import FirebaseProfessorService from "../../../services/FirebaseProfessorService";
+
+
 const ProfessorTableRow = (props) => {
     const { _id, name, university, degree } = props.professor
 
@@ -10,10 +14,19 @@ const ProfessorTableRow = (props) => {
         //axios.delete(`http://localhost:3001/professors/${id}`)
 
         //Usando o express com mongo
+        // if (window.confirm(`Deseja Exluir o Elemento de ID: ${_id}?`)) {
+        //     axios.delete(`http://localhost:3002/professors/crud/delete/${_id}`)
+        //         .then(res => props.deleteProfessorById(_id))
+        //         .catch(error => console.log(error))
+        // }
+
+        //Firebaseee
         if (window.confirm(`Deseja Exluir o Elemento de ID: ${_id}?`)) {
-            axios.delete(`http://localhost:3002/professors/crud/delete/${_id}`)
-                .then(res => props.deleteProfessorById(_id))
-                .catch(error => console.log(error))
+           FirebaseProfessorService.delete(
+                props.firestore,
+                ()=>{console.log('Apagado')},
+                _id
+           )
         }
     }
 

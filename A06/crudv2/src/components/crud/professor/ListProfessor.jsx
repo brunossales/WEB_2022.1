@@ -4,7 +4,16 @@ import axios from "axios";
 
 import ProfessorTableRow from "./ProfessorTableRow";
 
-function ListProfessor() {
+//Firebase
+import FirebaseContext from "../../../utils/FirebaseContext";
+import FirebaseProfessorService from "../../../services/FirebaseProfessorService";
+
+const ListProfessorPage = () => 
+    <FirebaseContext.Consumer>
+        {(firebase) => <ListProfessor firebase={firebase} />}
+    </FirebaseContext.Consumer>
+
+function ListProfessor(props) {
 
     const [professors, setProfessors] = useState([])
     
@@ -14,12 +23,19 @@ function ListProfessor() {
             //axios.get("http://localhost:3001/professors")
 
             //Express com mongo
-            axios.get("http://localhost:3002/professors/crud/list")
-                .then((res) => {setProfessors(res.data)})
-                .catch((error) => {console.log(error)})
+            // axios.get("http://localhost:3002/professors/crud/list")
+            //     .then((res) => {setProfessors(res.data)})
+            //     .catch((error) => {console.log(error)})
+
+            // Firebase
+
+            FirebaseProfessorService.list(
+                props.firebase.getFirestoreDb(),
+                (professors) => setProfessors(professors)
+            )
         }
         ,
-        []
+        [professors]
     )
 
     function deleteProfessorById(_id){
@@ -37,7 +53,12 @@ function ListProfessor() {
         if (!professors) return
         return professors.map(
             (professor, i) => {
-                return <ProfessorTableRow professor={professor} key={i} deleteProfessorById={deleteProfessorById}/>
+                return <ProfessorTableRow
+                            professor={professor}
+                            key={i}
+                            // deleteProfessorById={deleteProfessorById}
+                            firestore={props.firebase.getFirestoreDb()}
+                            />
             }
         )
     }
@@ -73,4 +94,4 @@ function ListProfessor() {
     );
 }
 
-export default ListProfessor
+export default ListProfessorPage
