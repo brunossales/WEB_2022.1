@@ -4,14 +4,11 @@ import axios from "axios";
 import FirebaseContext from "../../../utils/FirebaseContext";
 import FirebaseService from "../../../services/FirebaseStudentServices";
 
-function CreateStudentPage() {
+const CreateStudentPage = () => 
     <FirebaseContext.Consumer>
-        {(firebase) => {
-            if(localStorage.getItem('user') != null)
-                return <CreateStudent firebase={firebase}></CreateStudent>
-        }}
-    </FirebaseContext.Consumer>
-}
+        {(firebase) =>  <CreateStudent firebase={firebase} />}
+    </ FirebaseContext.Consumer>
+
 
 function CreateStudent(props) {
 
@@ -23,7 +20,7 @@ function CreateStudent(props) {
     const handleSubmit = (event) => {
         event.preventDefault()
 
-        const newStudent = { name, course, ira }
+        const newStudent = {course, ira, name }
 
         //Apenas com o Json server
         //axios.post('http://localhost:3001/students', newStudent)
@@ -45,7 +42,11 @@ function CreateStudent(props) {
 
         FirebaseService.create(
             props.firebase.getFirestoreDb(),
-            () => {navigate('/listStudent')},
+            (_id)=>{
+             //console.log(res.data._id)
+              alert(`Aluno ${name} criado com sucesso com id ${_id}.`)
+              navigate("/listStudent")
+            },
             newStudent
         )
     }

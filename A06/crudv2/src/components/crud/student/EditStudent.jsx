@@ -6,7 +6,7 @@ import FirebaseService from "../../../services/FirebaseStudentServices";
 //import { students } from './data.js'
 const EditStudentPage = () => 
     <FirebaseContext.Consumer>
-        {(firebase) => <EditStudent firebase={firebase}></EditStudent>}
+        {(firebase) => <EditStudent firebase={firebase} />}
     </FirebaseContext.Consumer>
 
 
@@ -41,7 +41,7 @@ function EditStudent(props) {
 
         FirebaseService.update(
             props.firebase.getFirestoreDb(),
-            ()=>{navigate('/listStudent')},
+            (ok)=>{if(ok) navigate('/listStudent')},
             params.id,
             updatedStudent
         )
@@ -66,7 +66,7 @@ function EditStudent(props) {
             //     )
 
                 FirebaseService.retrieve_promisse(
-                    props.firebase.getFiestoreDb(),
+                    props.firebase.getFirestoreDb(),
                     (students)=>{
                         setName(students.name)
                         setCourse(students.course)
@@ -76,7 +76,7 @@ function EditStudent(props) {
                 )
         }
         ,
-        [params.id, props]
+        [params.id]
     )
 
     return (

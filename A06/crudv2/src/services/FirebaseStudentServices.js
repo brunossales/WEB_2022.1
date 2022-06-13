@@ -1,4 +1,4 @@
-import { collection, getDocs, onSnapshot, query, addDoc, getDoc, doc, updateDoc, deleteDoc} from "firebase/firestore"
+import { collection, getDocs, onSnapshot, query, addDoc, getDoc, doc, updateDoc, deleteDoc, orderBy} from "firebase/firestore"
 
 export default class FirebaseService {
     // static unscribre = null
@@ -22,24 +22,27 @@ export default class FirebaseService {
             .catch((error) => console.log(error))
     }
 
-    static list_onSnapshot = (firestore, callback) => {
-
-        const q = query(collection(firestore, 'student'))
+    static list_onSnapshot = (firestore,callback)=>{
+        const coll = collection(firestore,'student')
+        const q = query(coll, orderBy('name'))
         onSnapshot(
             q,
-            (querySnapshot) => {
+            (querySnapshot)=>{
                 let students = []
                 querySnapshot.forEach(
-                    (doc) => {
-                        students.push({
-                            _id: doc.id,
-                            name:doc.data().name,
-                            course:doc.data().course,
-                            ira:doc.data().ira
-                        })
+                    (document)=>{
+                        //console.log(document.data());
+                        students.push(
+                            {
+                                _id:document.id,
+                                name:document.data().name,
+                                course:document.data().course,
+                                ira:document.data().ira   
+                            }
+                        )
                     }
-                )
-                callback(students)
+                )//forEach
+                callback(students) //mensagem para o pai ListStudent
             }
         )
     }
@@ -72,7 +75,7 @@ export default class FirebaseService {
         const docRef = doc(firestore, 'student', _id)
         getDoc(docRef)
         .then((docSnap) =>{
-            if(docSnap.exists) callback(docSnap.data())
+            if(docSnap.exists()) callback(docSnap.data())
         })
         .catch((err) =>console.log(err))
     }
@@ -82,7 +85,7 @@ export default class FirebaseService {
         updateDoc(docRef, body)
             .then(
                 () => {
-                    callback()
+                    callback(true)
                 }
             )
             .catch((error) => console.log(error))
