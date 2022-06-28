@@ -23,11 +23,30 @@ function Home(props) {
     const [validate, setValidate] = useState({ login: '', password: '' })
     const navigate = useNavigate()
 
+    const validateFields = () => {
+        let res = true
+        setValidate({login:'', password: ''})
+
+        if(login === '' || password === '') {
+            props.setToast({header:'Erro!',body:'Preencha todos os campos.'})
+            props.setShowToast(true)
+            setLoading(false)
+            res = false
+            let validateObj = {login: '', password: ''}
+            if(login === '') validateObj.login = 'is-invalid'
+            if(password === '') validateObj.password = 'is-invalid'
+            setValidate(validateObj)
+        }
+
+        return res
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault()
         setLoading(true)
         
+        if(!validateFields()) return 
+
         FirebaseUserService.login(
             props.firebase.getAuthentication(),
             login,
@@ -51,7 +70,7 @@ function Home(props) {
     const renderSubmitButton = () => {
         if (loading) {
             return (
-                <div style={{ padding: 10 }}>
+                <div style={{ paddingTop: 20 }}>
                     <button className="btn btn-primary" type="button" disabled>
                         <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         <span style={{ marginLeft: 10 }}>Carregando...</span>
