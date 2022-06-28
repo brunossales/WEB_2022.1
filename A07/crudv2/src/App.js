@@ -18,6 +18,7 @@ import FirebaseService from "./services/student/FirebaseStudentServices";
 import CreateStudentPage from "./components/crud/student/CreateStudent";
 import FirebaseUserService from "./services/FirebaseUserService";
 import MyToast from "./utils/MyToast";
+import SignUpPage from "./components/SignUp";
 
 const AppPage = () =>
   <FirebaseContext.Consumer>
@@ -121,6 +122,9 @@ function App(props) {
           path="about" 
           element={<About />} 
         />
+        <Route path="signup" 
+          element={<SignUpPage setLogged={setLogged} setShowToast={setShowToast} setToast={setToast}/>} />
+
 
 
         <Route 

@@ -6,10 +6,22 @@ import axios from 'axios';
 //Firebase
 import FirebaseContext from '../../../utils/FirebaseContext';
 import FirebaseProfessorService from '../../../services/professor/FirebaseProfessorService';
+import RestrictPage from '../../../utils/RestrictPage';
 
-const CreateProfessorPage = () => 
+const CreateProfessorPage = ({ setShowToast, setToast }) =>
     <FirebaseContext.Consumer>
-        {(firebase) => <CreateProfessor firebase={firebase} />}
+        {(firebase) => {
+            return (
+                <RestrictPage isLogged={firebase.getUser() != null}>
+                    <CreateProfessor
+                        firebase={firebase}
+                        setShowToast={setShowToast}
+                        setToast={setToast} />
+                </RestrictPage>
+            )
+        }
+
+        }
     </ FirebaseContext.Consumer>
 
 function CreateProfessor(props) {
@@ -19,32 +31,66 @@ function CreateProfessor(props) {
     const [degree, setDegree] = useState("")
     const navigate = useNavigate()
 
+    const [validate, setValidate] = useState({ name: '', university: '', degree: '' })
+    const [loading, setLoading] = useState(false)
+
+
+    const validateFields = () => {
+        let res = true
+        setValidate({ name: '', university: '', degree: '', })
+
+        if (name === '' || university === '' || degree === '') {
+            props.setToast({ header: 'Erro!', body: 'Preencha todos os campos' })
+            props.setShowToast(true)
+            setLoading(false)
+            res = false
+            let validateObj = { name: '', university: '', degree: '' }
+            if (name === '') validateObj.name = 'is-invalid'
+            if (degree === '') validateObj.degree = 'is-invalid'
+            if (university === '') validateObj.university = 'is-invalid'
+            setValidate(validateObj)
+        }
+
+        return res
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault()
-        const newProfessor = {name, university, degree}
+        setLoading(true)
 
-        //JsonServer
-        //axios.post("http://localhost:3001/professors", newProfessor)
+        if (!validateFields()) return
 
-        //Express com mongo
-        // axios.post("http://localhost:3002/professors/crud/create", newProfessor)
-        // .then(
-        //     (response) => {
-        //         console.log(response)
-        //         alert(`Professor ${name} criado com sucesso, maninho!!`)
-        //         navigate('/listProfessor')
-        //     }
-        // )
-        // .catch(error=>console.log(error))
-
+        const newProfessor = { name, university, degree }
         //Firebase
         FirebaseProfessorService.create(
             props.firebase.getFirestoreDb(),
-            (id) =>{
-                alert(`Criando o professor`)
+            () => {
+                props.setToast({ header: 'Sucesso!', body: `Processor: ${name} criado com sucesso.` })
+                props.setShowToast(true)
+                setLoading(false)
                 navigate("/listProfessor")
             },
             newProfessor
+        )
+    }
+
+    const renderSubmitButton = () => {
+        if (loading) {
+            return (
+                <div style={{ paddingTop: 20 }}>
+                    <button className="btn btn-primary" type="button" disabled>
+                        <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span style={{ marginLeft: 10 }}>Carregando...</span>
+                    </button>
+                </div>
+            )
+        }
+        return (
+            <>
+                <div className="form-group" style={{ paddingTop: 20 }}>
+                    <input type="submit" value="Efetuar Cadastro" className="btn btn-primary" />
+                </div>
+            </>
         )
     }
 
@@ -58,7 +104,7 @@ function CreateProfessor(props) {
                     <div className="form-group">
                         <label>Nome: </label>
                         <input type="text"
-                            className="form-control"
+                            className={`form-control ${validate.name}`}
                             value={(name == null || name === undefined) ? "" : name}
                             name="name"
                             onChange={(event) => { setName(event.target.value) }} />
@@ -66,7 +112,7 @@ function CreateProfessor(props) {
                     <div className="form-group">
                         <label>Universidade: </label>
                         <input type="text"
-                            className="form-control"
+                            className={`form-control ${validate.university}`}
                             value={university ?? ""}
                             name="university"
                             onChange={(event) => { setUniversity(event.target.value) }} />
@@ -74,14 +120,12 @@ function CreateProfessor(props) {
                     <div className="form-group">
                         <label>Titulação: </label>
                         <input type="text"
-                            className="form-control"
+                            className={`form-control ${validate.degree}`}
                             value={degree ?? ""}
                             name="degree"
                             onChange={(event) => { setDegree(event.target.value) }} />
                     </div>
-                    <div className="form-group" style={{ paddingTop: 20, paddingBottom:20 }}>
-                        <input type="submit" value="Criar Professor" className="btn btn-primary" />
-                    </div>
+                    {renderSubmitButton()}
                 </form>
             </main>
             <nav>

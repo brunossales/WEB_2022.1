@@ -32,17 +32,6 @@ function ListStudent(props) {
 
     useEffect(
         () => {
-            // axios.get("http://localhost:3002/students/crud/list")
-            //     .then(
-            //         (res) => {
-            //             setStudents(res.data)
-            //         }
-            //     )
-            //     .catch(
-            //         (error) => {
-            //             console.log(error)
-            //         }
-            //     )
 
             setLoading(true)
             FirebaseService.list(

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 
@@ -8,26 +8,39 @@ import FirebaseProfessorService from "../../../services/professor/FirebaseProfes
 
 const ProfessorTableRow = (props) => {
     const { _id, name, university, degree } = props.professor
+    const [loading, setLoading] = useState(false)
 
     function deleteProfessor() {
-        //Usando o JsonServer
-        //axios.delete(`http://localhost:3001/professors/${id}`)
-
-        //Usando o express com mongo
-        // if (window.confirm(`Deseja Exluir o Elemento de ID: ${_id}?`)) {
-        //     axios.delete(`http://localhost:3002/professors/crud/delete/${_id}`)
-        //         .then(res => props.deleteProfessorById(_id))
-        //         .catch(error => console.log(error))
-        // }
+       setLoading(true)
 
         //Firebaseee
         if (window.confirm(`Deseja Exluir o Elemento de ID: ${_id}?`)) {
            FirebaseProfessorService.delete(
                 props.firestore,
-                ()=>{console.log('Apagado')},
+                ()=>{
+                    setLoading(false)
+                    props.setToast({ header: 'Sucesso!', body: 'Professor ' + _id + ' apagado com sucesso!' })
+                    props.setShowToast(true)
+                },
                 _id
            )
         }
+    }
+
+    const renderSubmitButton = () => {
+        if (loading) {
+            return (
+                
+                    <button className="btn btn-danger" type="button" disabled style={{width:'75px'}}>
+                        <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        
+                    </button>
+                
+            )
+        }
+        return (
+                <button className="btn btn-danger" style={{width:'75px'}}  onClick={() => deleteProfessor()}>Apagar</button> 
+        )
     }
 
     return (
@@ -48,7 +61,7 @@ const ProfessorTableRow = (props) => {
                 <Link to={`/editProfessor/${_id}`} className="btn btn-primary">Editar</Link>
             </td>
             <td style={{ textAlign: "center" }}>
-                <button className="btn btn-danger" onClick={() => deleteProfessor()}>Apagar</button>
+                {renderSubmitButton()}
             </td>
         </tr>
     )
