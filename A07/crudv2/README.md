@@ -1,4 +1,4 @@
-# Autentication, restricted access e spinner's🔥 
+# Autentication, restricted access and spinner's🔥 
 
 ## Using React-bootstrap to create toast
 
